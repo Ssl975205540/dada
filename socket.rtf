@@ -1,0 +1,499 @@
+{\rtf1\ansi\ansicpg936\cocoartf1504\cocoasubrtf820
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 Menlo-Bold;
+\f3\fnil\fcharset0 Menlo-Italic;\f4\fnil\fcharset134 PingFangSC-Regular;\f5\fnil\fcharset0 Menlo-BoldItalic;
+}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue109;\red82\green0\blue103;
+\red109\green109\blue109;\red0\green0\blue254;\red15\green112\blue3;\red11\green93\blue177;\red109\green111\blue5;
+\red47\green47\blue47;}
+{\*\expandedcolortbl;;\csgenericrgb\c0\c0\c0;\csgenericrgb\c0\c0\c42745;\csgenericrgb\c32157\c0\c40392;
+\csgenericrgb\c42745\c42745\c42745;\csgenericrgb\c0\c0\c99608;\csgenericrgb\c5882\c43922\c1176;\csgenericrgb\c4314\c36471\c69412;\csgenericrgb\c42745\c43529\c1961;
+\csgenericrgb\c18431\c18431\c18431;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "http://blog.csdn.net/u013064109/article/details/47843633"}}{\fldrslt 
+\f0\fs24 \cf0 http://blog.csdn.net/u013064109/article/details/47843633}}
+\f0\fs24 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+{\field{\*\fldinst{HYPERLINK "http://blog.csdn.net/zhoutaozagt/article/details/52054482"}}{\fldrslt \cf0 http://blog.csdn.net/zhoutaozagt/article/details/52054482}}\
+\
+\pard\tx890\pardeftab890\pardirnatural\partightenfactor0
+
+\f1\fs36 \cf2 \CocoaLigature0   
+\f2\b \cf3 \CocoaLigature1 package 
+\f1\b0 \cf0 socket;\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf0 \
+
+\f2\b \cf3 import 
+\f1\b0 \cf0 java.io.*;\
+
+\f2\b \cf3 import 
+\f1\b0 \cf0 java.net.ServerSocket;\
+
+\f2\b \cf3 import 
+\f1\b0 \cf0 java.net.Socket;\
+
+\f2\b \cf3 import 
+\f1\b0 \cf0 java.util.ArrayList;\
+
+\f2\b \cf3 import 
+\f1\b0 \cf0 java.util.List;\
+
+\f2\b \cf3 import 
+\f1\b0 \cf0 java.util.concurrent.ExecutorService;\
+
+\f2\b \cf3 import 
+\f1\b0 \cf0 java.util.concurrent.Executors;\
+\
+
+\f2\b \cf3 public class 
+\f1\b0 \cf0 ServerSocketThread 
+\f2\b \cf3 extends 
+\f1\b0 \cf0 Thread \{\
+    
+\f2\b \cf3 private 
+\f1\b0 \cf0 ServerSocket 
+\f2\b \cf4 serverSocket 
+\f1\b0 \cf0 = 
+\f2\b \cf3 null
+\f1\b0 \cf0 ;\
+    
+\f2\b \cf3 private 
+\f1\b0 \cf0 List<Socket> 
+\f2\b \cf4 mClientList 
+\f1\b0 \cf0 = 
+\f2\b \cf3 new 
+\f1\b0 \cf0 ArrayList<Socket>();\
+\
+    
+\f2\b \cf3 private 
+\f1\b0 \cf0 ExecutorService 
+\f2\b \cf4 mExecutors 
+\f1\b0 \cf0 = 
+\f2\b \cf3 null
+\f1\b0 \cf0 ; 
+\f3\i \cf5 // 
+\f4\i0 \'cf\'df\'b3\'cc\'b3\'d8\'b6\'d4\'cf\'f3
+\f3\i \
+\
+    
+\f2\i0\b \cf3 public 
+\f1\b0 \cf0 ServerSocketThread(ServerSocket serverScoket) \{\
+        
+\f2\b \cf3 try 
+\f1\b0 \cf0 \{\
+            
+\f2\b \cf3 if 
+\f1\b0 \cf0 (
+\f2\b \cf3 null 
+\f1\b0 \cf0 == 
+\f2\b \cf4 serverSocket
+\f1\b0 \cf0 ) \{\
+                
+\f2\b \cf3 this
+\f1\b0 \cf0 .
+\f2\b \cf4 serverSocket 
+\f1\b0 \cf0 = 
+\f2\b \cf3 new 
+\f1\b0 \cf0 ServerSocket(\cf6 8889\cf0 );\
+                
+\f2\b \cf4 mExecutors 
+\f1\b0 \cf0 = Executors.
+\f3\i newCachedThreadPool
+\f1\i0 (); 
+\f3\i \cf5 // 
+\f4\i0 \'b4\'b4\'bd\'a8\'cf\'df\'b3\'cc\'b3\'d8
+\f3\i \
+                
+\f1\i0 \cf0 System.
+\f5\i\b \cf4 out
+\f1\i0\b0 \cf0 .println(
+\f2\b \cf7 "socket start"
+\f1\b0 \cf0 );\
+            \}\
+        \} 
+\f2\b \cf3 catch 
+\f1\b0 \cf0 (Exception e) \{\
+            System.
+\f5\i\b \cf4 out
+\f1\i0\b0 \cf0 .println(
+\f2\b \cf7 "SocketThread
+\f4 \'b4\'b4\'bd\'a8
+\f2 socket
+\f4 \'b7\'fe\'ce\'f1\'b3\'f6\'b4\'ed
+\f2 "
+\f1\b0 \cf0 );\
+            e.printStackTrace();\
+        \}\
+\
+    \}\
+\
+    
+\f2\b \cf3 public void 
+\f1\b0 \cf0 run() \{\
+        
+\f2\b \cf3 while 
+\f1\b0 \cf0 (!
+\f2\b \cf3 this
+\f1\b0 \cf0 .isInterrupted()) \{\
+            
+\f2\b \cf3 try 
+\f1\b0 \cf0 \{\
+                
+\f3\i \cf5 //
+\f4\i0 \'d7\'e8\'c8\'fb
+\f3\i \
+                
+\f1\i0 \cf0 Socket socket = 
+\f2\b \cf4 serverSocket
+\f1\b0 \cf0 .accept();\
+                
+\f3\i \cf5 // 
+\f4\i0 \'b0\'d1\'bf\'cd\'bb\'a7\'b6\'cb\'b7\'c5\'c8\'eb\'bc\'af\'ba\'cf\'d6\'d0
+\f3\i \
+                
+\f2\i0\b \cf4 mClientList
+\f1\b0 \cf0 .add(socket);\
+                
+\f2\b \cf4 mExecutors
+\f1\b0 \cf0 .execute(
+\f2\b \cf3 new 
+\f1\b0 \cf0 Service(socket)); 
+\f3\i \cf5 // 
+\f4\i0 \'c6\'f4\'b6\'af\'d2\'bb\'b8\'f6\'cf\'df\'b3\'cc\'a3\'ac\'d3\'c3\'d2\'d4\'ca\'d8\'ba\'f2\'b4\'d3\'bf\'cd\'bb\'a7\'b6\'cb\'b7\'a2\'c0\'b4\'b5\'c4\'cf\'fb\'cf\'a2
+\f3\i \
+//                if (null != socket && !socket.isClosed()) \{\
+//                    //
+\f4\i0 \'b4\'a6\'c0\'ed\'bd\'d3\'ca\'dc\'b5\'c4\'ca\'fd\'be\'dd
+\f3\i \
+//                    new SocketManager(socket).start();\
+//                \}\
+//                socket.setSoTimeout(30000);\
+\
+            
+\f1\i0 \cf0 \} 
+\f2\b \cf3 catch 
+\f1\b0 \cf0 (Exception e) \{\
+                e.printStackTrace();\
+            \}\
+        \}\
+    \}\
+\
+\
+    
+\f2\b \cf3 public void 
+\f1\b0 \cf0 closeSocketServer() \{\
+        
+\f2\b \cf3 try 
+\f1\b0 \cf0 \{\
+            
+\f2\b \cf3 if 
+\f1\b0 \cf0 (
+\f2\b \cf3 null 
+\f1\b0 \cf0 != 
+\f2\b \cf4 serverSocket 
+\f1\b0 \cf0 && !
+\f2\b \cf4 serverSocket
+\f1\b0 \cf0 .isClosed()) \{\
+                
+\f2\b \cf4 serverSocket
+\f1\b0 \cf0 .close();\
+            \}\
+        \} 
+\f2\b \cf3 catch 
+\f1\b0 \cf0 (IOException e) \{\
+            
+\f3\i \cf5 // 
+\f5\b \cf8 TODO Auto-generated catch block\
+            
+\f1\i0\b0 \cf0 e.printStackTrace();\
+        \}\
+    \}\
+    
+\f2\b \cf3 class 
+\f1\b0 \cf0 Service 
+\f2\b \cf3 implements 
+\f1\b0 \cf0 Runnable \{\
+        
+\f2\b \cf3 private 
+\f1\b0 \cf0 Socket 
+\f2\b \cf4 socket
+\f1\b0 \cf0 ;\
+        
+\f2\b \cf3 private 
+\f1\b0 \cf0 BufferedReader 
+\f2\b \cf4 in 
+\f1\b0 \cf0 = 
+\f2\b \cf3 null
+\f1\b0 \cf0 ;\
+        
+\f2\b \cf3 private 
+\f1\b0 \cf0 String 
+\f2\b \cf4 message 
+\f1\b0 \cf0 = 
+\f2\b \cf7 ""
+\f1\b0 \cf0 ;\
+\
+        
+\f2\b \cf3 public 
+\f1\b0 \cf0 Service(Socket socket) \{\
+            
+\f2\b \cf3 this
+\f1\b0 \cf0 .
+\f2\b \cf4 socket 
+\f1\b0 \cf0 = socket;\
+            
+\f2\b \cf3 try 
+\f1\b0 \cf0 \{\
+                
+\f2\b \cf4 in 
+\f1\b0 \cf0 = 
+\f2\b \cf3 new 
+\f1\b0 \cf0 BufferedReader(
+\f2\b \cf3 new 
+\f1\b0 \cf0 InputStreamReader(\
+                        socket.getInputStream()));
+\f3\i \cf5 // 
+\f4\i0 \'bb\'f1\'b5\'c3\'ca\'e4\'c8\'eb\'c1\'f7\'b6\'d4\'cf\'f3
+\f3\i \
+                // 
+\f4\i0 \'bf\'cd\'bb\'a7\'b6\'cb\'d6\'bb\'d2\'aa\'d2\'bb\'c1\'ac\'b5\'bd\'b7\'fe\'ce\'f1\'c6\'f7\'a3\'ac\'b1\'e3\'b7\'a2\'cb\'cd\'c1\'ac\'bd\'d3\'b3\'c9\'b9\'a6\'b5\'c4\'d0\'c5\'cf\'a2
+\f3\i \
+                
+\f2\i0\b \cf4 message 
+\f1\b0 \cf0 = 
+\f2\b \cf7 "
+\f4 \'b7\'fe\'ce\'f1\'c6\'f7\'b5\'d8\'d6\'b7\'a3\'ba
+\f2 " 
+\f1\b0 \cf0 + 
+\f2\b \cf3 this
+\f1\b0 \cf0 .
+\f2\b \cf4 socket
+\f1\b0 \cf0 .getInetAddress();\
+                
+\f2\b \cf3 this
+\f1\b0 \cf0 .sendMessage(
+\f2\b \cf4 message
+\f1\b0 \cf0 );\
+                
+\f2\b \cf4 message 
+\f1\b0 \cf0 = 
+\f2\b \cf7 "
+\f4 \'b5\'b1\'c7\'b0\'c1\'ac\'bd\'d3\'d7\'dc\'ca\'fd
+\f2 :" 
+\f1\b0 \cf0 + 
+\f2\b \cf4 mClientList
+\f1\b0 \cf0 .size();\
+                
+\f2\b \cf3 this
+\f1\b0 \cf0 .sendMessage(
+\f2\b \cf4 message
+\f1\b0 \cf0 );\
+            \} 
+\f2\b \cf3 catch 
+\f1\b0 \cf0 (IOException e) \{\
+                e.printStackTrace();\
+            \}\
+\
+        \}\
+\
+        \cf9 @Override\
+        
+\f2\b \cf3 public void 
+\f1\b0 \cf0 run() \{\
+            
+\f2\b \cf3 try 
+\f1\b0 \cf0 \{\
+                
+\f2\b \cf3 while 
+\f1\b0 \cf0 (
+\f2\b \cf3 true
+\f1\b0 \cf0 ) \{\
+\
+                    
+\f2\b \cf3 if 
+\f1\b0 \cf0 ((
+\f2\b \cf4 message 
+\f1\b0 \cf0 = 
+\f2\b \cf4 in
+\f1\b0 \cf0 .readLine()) != 
+\f2\b \cf3 null
+\f1\b0 \cf0 ) \{\
+                        
+\f3\i \cf5 // 
+\f4\i0 \'b5\'b1\'bf\'cd\'bb\'a7\'b6\'cb\'b7\'a2\'cb\'cd\'b5\'c4\'d0\'c5\'cf\'a2\'ce\'aa\'a3\'ba
+\f3\i exit
+\f4\i0 \'ca\'b1\'a3\'ac\'b9\'d8\'b1\'d5\'c1\'ac\'bd\'d3
+\f3\i \
+                        
+\f2\i0\b \cf3 if 
+\f1\b0 \cf0 (
+\f2\b \cf4 message
+\f1\b0 \cf0 .equals(
+\f2\b \cf7 "exit"
+\f1\b0 \cf0 )) \{\
+                            closeSocket();\
+                            
+\f2\b \cf3 break
+\f1\b0 \cf0 ;\
+                        \} 
+\f2\b \cf3 else 
+\f1\b0 \cf0 \{\
+                            
+\f3\i \cf5 // 
+\f4\i0 \'bd\'d3\'ca\'d5\'bf\'cd\'bb\'a7\'b6\'cb\'b7\'a2\'b9\'fd\'c0\'b4\'b5\'c4\'d0\'c5\'cf\'a2
+\f3\i message
+\f4\i0 \'a3\'ac\'c8\'bb\'ba\'f3\'d7\'aa\'b7\'a2\'b8\'f8\'bf\'cd\'bb\'a7\'b6\'cb\'a1\'a3
+\f3\i \
+                            
+\f2\i0\b \cf4 message 
+\f1\b0 \cf0 = 
+\f2\b \cf4 socket
+\f1\b0 \cf0 .getInetAddress() + 
+\f2\b \cf7 ":" 
+\f1\b0 \cf0 + 
+\f2\b \cf4 message
+\f1\b0 \cf0 ;\
+                            
+\f2\b \cf3 this
+\f1\b0 \cf0 .sendMessage(
+\f2\b \cf4 message
+\f1\b0 \cf0 );\
+                        \}\
+                    \}\
+                \}\
+            \} 
+\f2\b \cf3 catch 
+\f1\b0 \cf0 (Exception e) \{\
+                e.printStackTrace();\
+            \}\
+        \}\
+\
+        
+\f3\i \cf5 /**\
+         * 
+\f4\i0 \'b9\'d8\'b1\'d5\'bf\'cd\'bb\'a7\'b6\'cb
+\f3\i \
+         *\
+         * 
+\f5\b @throws 
+\f3\b0 IOException\
+         */\
+        
+\f2\i0\b \cf3 public void 
+\f1\b0 \cf0 closeSocket() 
+\f2\b \cf3 throws 
+\f1\b0 \cf0 IOException \{\
+            
+\f2\b \cf4 mClientList
+\f1\b0 \cf0 .remove(
+\f2\b \cf4 socket
+\f1\b0 \cf0 );\
+            
+\f2\b \cf4 in
+\f1\b0 \cf0 .close();\
+            
+\f2\b \cf4 message 
+\f1\b0 \cf0 = 
+\f2\b \cf7 "
+\f4 \'d6\'f7\'bb\'fa
+\f2 :" 
+\f1\b0 \cf0 + 
+\f2\b \cf4 socket
+\f1\b0 \cf0 .getInetAddress() + 
+\f2\b \cf7 "
+\f4 \'b9\'d8\'b1\'d5\'c1\'ac\'bd\'d3
+\f2 \cf3 \\n
+\f4 \cf7 \'c4\'bf\'c7\'b0\'d4\'da\'cf\'df
+\f2 :"\
+                    
+\f1\b0 \cf0 + 
+\f2\b \cf4 mClientList
+\f1\b0 \cf0 .size();\
+            
+\f2\b \cf4 socket
+\f1\b0 \cf0 .close();\
+            
+\f2\b \cf3 this
+\f1\b0 \cf0 .sendMessage(
+\f2\b \cf4 message
+\f1\b0 \cf0 );\
+        \}\
+\
+        
+\f3\i \cf5 /**\
+         * 
+\f4\i0 \'bd\'ab\'bd\'d3\'ca\'d5\'b5\'c4\'cf\'fb\'cf\'a2\'d7\'aa\'b7\'a2\'b8\'f8\'c3\'bf\'d2\'bb\'b8\'f6\'bf\'cd\'bb\'a7\'b6\'cb
+\f3\i \
+         *\
+         * 
+\f5\b @param \cf10 msg\
+         
+\f3\b0 \cf5 */\
+\
+        
+\f2\i0\b \cf3 public void 
+\f1\b0 \cf0 sendMessage(String msg) \{\
+            System.
+\f5\i\b \cf4 out
+\f1\i0\b0 \cf0 .println(msg);
+\f3\i \cf5 // 
+\f4\i0 \'cf\'c8\'d4\'da\'bf\'d8\'d6\'c6\'cc\'a8\'ca\'e4\'b3\'f6
+\f3\i \
+            
+\f2\i0\b \cf3 int 
+\f1\b0 \cf0 count = 
+\f2\b \cf4 mClientList
+\f1\b0 \cf0 .size();\
+            
+\f3\i \cf5 // 
+\f4\i0 \'b1\'e9\'c0\'fa\'bf\'cd\'bb\'a7\'b6\'cb\'bc\'af\'ba\'cf
+\f3\i \
+            
+\f2\i0\b \cf3 for 
+\f1\b0 \cf0 (
+\f2\b \cf3 int 
+\f1\b0 \cf0 i = \cf6 0\cf0 ; i < count; i++) \{\
+                Socket mSocket = 
+\f2\b \cf4 mClientList
+\f1\b0 \cf0 .get(i);\
+                PrintWriter out = 
+\f2\b \cf3 null
+\f1\b0 \cf0 ;\
+                
+\f2\b \cf3 try 
+\f1\b0 \cf0 \{\
+                    out = 
+\f2\b \cf3 new 
+\f1\b0 \cf0 PrintWriter(
+\f2\b \cf3 new 
+\f1\b0 \cf0 BufferedWriter(\
+                            
+\f2\b \cf3 new 
+\f1\b0 \cf0 OutputStreamWriter(mSocket.getOutputStream())),\
+                            
+\f2\b \cf3 true
+\f1\b0 \cf0 );
+\f3\i \cf5 // 
+\f4\i0 \'b4\'b4\'bd\'a8\'ca\'e4\'b3\'f6\'c1\'f7\'b6\'d4\'cf\'f3
+\f3\i \
+                    
+\f1\i0 \cf0 out.println(msg);
+\f3\i \cf5 // 
+\f4\i0 \'d7\'aa\'b7\'a2
+\f3\i \
+                
+\f1\i0 \cf0 \} 
+\f2\b \cf3 catch 
+\f1\b0 \cf0 (IOException e) \{\
+                    e.printStackTrace();\
+                \}\
+            \}\
+        \}\
+    \}\
+\
+\
+\
+\}  \
+}
